@@ -17,14 +17,19 @@ public class TaskController {
 		this.taskService = taskService;
 	}
 
+	@GetMapping(path = "{taskId}")
+	public Task getTask(@PathVariable("taskId") Long taskId) {
+		return taskService.getTask(taskId);
+	}
+
 	@GetMapping
 	public List<Task> getTasks() {
 		return taskService.getTasks();
 	}
 
 	@PostMapping
-	public void registerNewTask(@RequestBody Task task){
-		taskService.addNewTask(task);
+	public Task registerNewTask(@RequestBody Task task){
+		return taskService.addNewTask(task);
 	}
 
 	@DeleteMapping(path = "{taskId}")
@@ -33,10 +38,10 @@ public class TaskController {
 	}
 
 	@PutMapping(path = "{taskId}")
-	public void updateTask(@PathVariable("taskId") Long taskId,
+	public Task updateTask(@PathVariable("taskId") Long taskId,
 							  @RequestParam(required = false) String name,
 							  @RequestParam(required = false) String description,
 						   @RequestParam(required = false) boolean reminder) {
-		taskService.updateStudent(taskId, name, description, reminder);
+		return taskService.updateTask(taskId, name, description, reminder);
 	}
 }

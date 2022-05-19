@@ -22,12 +22,16 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public void addNewTask(Task task){
+    public Task getTask(Long task_id) {
+        return taskRepository.findTaskById(task_id);
+    }
+
+    public Task addNewTask(Task task){
         Optional<Task> taskOptional = taskRepository.findTaskByName(task.getName());
         if (taskOptional.isPresent()){
             throw new IllegalStateException("name taken");
         }
-        taskRepository.save(task);
+        return taskRepository.save(task);
     }
 
     public void deleteTask(Long taskId) {
@@ -40,7 +44,7 @@ public class TaskService {
     }
 
     @Transactional
-    public void updateStudent(Long taskId, String name, String description, boolean reminder) {
+    public Task updateTask(Long taskId, String name, String description, boolean reminder) {
         Task task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalStateException("student with id " + taskId + " does not exist"));
         if (description != null && description.length() > 0 && !Objects.equals(task.getDescription(), description)) {
             task.setDescription(description);
@@ -55,5 +59,6 @@ public class TaskService {
         if (!Objects.equals(task.getReminder(), reminder)) {
             task.setReminder(reminder);
         }
+        return task;
     }
 }

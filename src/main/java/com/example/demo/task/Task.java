@@ -23,8 +23,8 @@ public class Task {
     private String description;
     private LocalDate ddl;
     private boolean reminder;
-    @Transient
-    private Integer restDay;
+//    @Transient
+//    private Integer restDay;
 
     public Task() {
 
@@ -77,14 +77,6 @@ public class Task {
         this.ddl = ddl;
     }
 
-    public Integer getRestDay() {
-        return Period.between(LocalDate.now(), this.ddl).getDays();
-    }
-
-    public void setRestDay(Integer restDay) {
-        this.restDay = restDay;
-    }
-
     public boolean getReminder() {
         return reminder;
     }
@@ -100,7 +92,6 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", ddl=" + ddl +
-                ", restDay=" + restDay +
                 '}';
     }
 }

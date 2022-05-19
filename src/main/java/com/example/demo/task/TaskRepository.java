@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("SELECT s FROM Task s WHERE s.name = ?1")
     Optional<Task> findTaskByName(String name);
+
+    @Query("SELECT s FROM Task s WHERE s.id = ?1")
+    Task findTaskById(Long id);
 }
